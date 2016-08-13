@@ -198,3 +198,6 @@ $RECYCLE.BIN/
 
 # Windows shortcuts
 *.lnk
+
+# Custom files
+/WeatherAdventure/Supporting\ Files/API.plist
