@@ -12,13 +12,14 @@ import RxSwift
 class WeatherViewModel {
     
     private let weatherAPI: WeatherAPI
-    private var weather: Observable<Weather>
+    private let weather: Observable<Weather>
     private let disposeBag = DisposeBag()
     
-    let nameVariable = Variable<String>("")
+    let nameVariable = Variable<String>("Zagreb")
     
     let cityObservable: Observable<String>
     let temperatureObservable: Observable<String>
+    let descriptionObservable: Observable<String>
     
     init(weatherAPI: WeatherAPI) {
         self.weatherAPI = weatherAPI
@@ -45,6 +46,14 @@ class WeatherViewModel {
         temperatureObservable = weather.map({ weather in
             if weather.temperature != nil {
                 return "\(weather.temperature!)°C"
+            } else {
+                return ""
+            }
+        })
+        
+        descriptionObservable = weather.map({ weather in
+            if weather.description != nil {
+                return weather.description!
             } else {
                 return ""
             }

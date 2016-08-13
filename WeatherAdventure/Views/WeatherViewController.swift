@@ -15,6 +15,7 @@ class WeatherViewController: UIViewController {
     @IBOutlet weak var textField: UITextField!
     @IBOutlet weak var cityLabel: UILabel!
     @IBOutlet weak var temperatureLabel: UILabel!
+    @IBOutlet weak var descriptionLabel: UILabel!
     
     let viewModel = WeatherViewModel(weatherAPI: WeatherAPI())
     let disposeBag = DisposeBag()
@@ -32,6 +33,10 @@ class WeatherViewController: UIViewController {
         
         viewModel.temperatureObservable
             .bindTo(temperatureLabel.rx_text)
+            .addDisposableTo(disposeBag)
+        
+        viewModel.descriptionObservable
+            .bindTo(descriptionLabel.rx_text)
             .addDisposableTo(disposeBag)
     }
 }

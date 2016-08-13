@@ -39,13 +39,22 @@
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2Im-Xu-Gha">
+                                <rect key="frame" x="20" y="381" width="560" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="2Im-Xu-Gha" firstAttribute="leading" secondItem="PHC-Dn-RbZ" secondAttribute="leading" id="0Cg-U4-NYT"/>
                             <constraint firstItem="HTN-yZ-y3F" firstAttribute="trailing" secondItem="PHC-Dn-RbZ" secondAttribute="trailing" id="Hei-HM-4BO"/>
                             <constraint firstItem="HTN-yZ-y3F" firstAttribute="top" secondItem="Hbh-FH-7Bp" secondAttribute="bottom" constant="8" symbolic="YES" id="LP6-dQ-MnE"/>
+                            <constraint firstItem="2Im-Xu-Gha" firstAttribute="trailing" secondItem="PHC-Dn-RbZ" secondAttribute="trailing" id="LuN-sF-ihQ"/>
                             <constraint firstItem="HTN-yZ-y3F" firstAttribute="leading" secondItem="PHC-Dn-RbZ" secondAttribute="leading" id="ONU-TS-PwX"/>
                             <constraint firstItem="HTN-yZ-y3F" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="W9v-YR-eP6"/>
+                            <constraint firstItem="2Im-Xu-Gha" firstAttribute="top" secondItem="PHC-Dn-RbZ" secondAttribute="bottom" constant="8" symbolic="YES" id="gJx-33-x74"/>
                             <constraint firstItem="PHC-Dn-RbZ" firstAttribute="top" secondItem="HTN-yZ-y3F" secondAttribute="bottom" constant="8" symbolic="YES" id="pcY-zN-SDG"/>
                             <constraint firstItem="Hbh-FH-7Bp" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="vCb-ir-Oqq"/>
                             <constraint firstItem="HTN-yZ-y3F" firstAttribute="centerX" secondItem="Hbh-FH-7Bp" secondAttribute="centerX" id="vpm-nc-PBn"/>
@@ -54,6 +63,7 @@
                     </view>
                     <connections>
                         <outlet property="cityLabel" destination="HTN-yZ-y3F" id="qB1-om-aw3"/>
+                        <outlet property="descriptionLabel" destination="2Im-Xu-Gha" id="GB3-n4-gi2"/>
                         <outlet property="temperatureLabel" destination="PHC-Dn-RbZ" id="UnQ-YG-JjC"/>
                         <outlet property="textField" destination="Hbh-FH-7Bp" id="1gd-f7-UZT"/>
                     </connections>
