@@ -200,4 +200,4 @@ $RECYCLE.BIN/
 *.lnk
 
 # Custom files
-/WeatherAdventure/Supporting\ Files/API.plist
+WeatherAdventure/Supporting\ Files/API.plist
