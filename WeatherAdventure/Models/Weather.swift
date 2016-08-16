@@ -11,22 +11,34 @@ import ObjectMapper
 
 class Weather: Mappable {
     
-    var city: String?
+    var locationName: String?
+    var iconName: String?
     var temperature: Float?
     var description: String? {
         didSet {
             description = capitalizeFirstLetter(description!)
         }
     }
+    var humidity: Float?
+    var pressure: Float?
+    var windSpeed: Float?
+    var sunrise: Int?
+    var sunset: Int?
     
     init() { }
     
     required init?(_ map: Map) { }
     
     func mapping(map: Map) {
-        city <- map["name"]
+        locationName <- map["name"]
+        iconName <- map["weather.icon"]
         temperature <- map["main.temp"]
         description <- map["weather.0.description"]
+        humidity <- map["main.humidity"]
+        pressure <- map["main.pressure"]
+        windSpeed <- map["wind.speed"]
+        sunrise <- map["sys.sunrise"]
+        sunset <- map["sys.sunset"]
     }
     
     private func capitalizeFirstLetter(sentence: String) -> String {

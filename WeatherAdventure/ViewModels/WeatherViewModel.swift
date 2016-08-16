@@ -12,42 +12,51 @@ import RxSwift
 class WeatherViewModel {
     
     private let weatherAPI: WeatherAPI
-    private let weather: Observable<Weather>
+    private var weather: Observable<Weather>
     private let disposeBag = DisposeBag()
     
-    let nameVariable = Variable<String>("Zagreb")
+    let weatherVariable = Variable<()>()
     
-    let cityObservable: Observable<String>
+    let locationNameObservable: Observable<String>
+    let iconObservable: Observable<UIImage>
     let temperatureObservable: Observable<String>
     let descriptionObservable: Observable<String>
+    let sunriseObservable: Observable<String>
+    let sunsetObservable: Observable<String>
+    let windSpeedObservable: Observable<String>
+    let humidityObservable: Observable<String>
+    let pressureObservable: Observable<String>
     
     init(weatherAPI: WeatherAPI) {
         self.weatherAPI = weatherAPI
         
-        weather = nameVariable.asObservable()
-            .debounce(0.3, scheduler: MainScheduler.instance)
-            .distinctUntilChanged()
-            .flatMapLatest({ (text) -> Observable<Weather> in
-                if text.isEmpty == true {
-                    return Observable.just(Weather())
-                } else {
-                    return weatherAPI.fetchCurrentWeather(text)
-                }
+        weather = weatherVariable.asObservable()
+            .flatMapLatest({ (_) -> Observable<Weather> in
+                return weatherAPI.fetchCurrentWeather("Varaždin")
             })
 
-        cityObservable = weather.map({ weather in
-            if weather.city != nil {
-                return weather.city!
+        locationNameObservable = weather.map({ weather in
+            if weather.locationName != nil {
+                return weather.locationName!
             } else {
-                return ""
+                return "No location provided."
+            }
+        })
+        
+        iconObservable = weather.map({ weather in
+            if weather.iconName != nil {
+                // TODO
+                return UIImage()
+            } else {
+                return UIImage()
             }
         })
         
         temperatureObservable = weather.map({ weather in
             if weather.temperature != nil {
-                return "\(weather.temperature!)°C"
+                return "\(Int(weather.temperature!))°C"
             } else {
-                return ""
+                return "--"
             }
         })
         
@@ -55,7 +64,47 @@ class WeatherViewModel {
             if weather.description != nil {
                 return weather.description!
             } else {
-                return ""
+                return "--"
+            }
+        })
+        
+        sunriseObservable = weather.map({ weather in
+            if weather.sunrise != nil {
+                return "\(weather.sunrise!)"
+            } else {
+                return "--"
+            }
+        })
+        
+        sunsetObservable = weather.map({ weather in
+            if weather.sunset != nil {
+                return "\(weather.sunset!)"
+            } else {
+                return "--"
+            }
+        })
+        
+        windSpeedObservable = weather.map({ weather in
+            if weather.windSpeed != nil {
+                return "\(weather.windSpeed!) m/s"
+            } else {
+                return "--"
+            }
+        })
+        
+        humidityObservable = weather.map({ weather in
+            if weather.humidity != nil {
+                return "\(weather.humidity!)%"
+            } else {
+                return "--"
+            }
+        })
+        
+        pressureObservable = weather.map({ weather in
+            if weather.pressure != nil {
+                return "\(weather.pressure!) hPA"
+            } else {
+                return "--"
             }
         })
     }
