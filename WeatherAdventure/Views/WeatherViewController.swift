@@ -12,6 +12,7 @@ import RxCocoa
 
 class WeatherViewController: UIViewController {
 
+    @IBOutlet weak var weatherImage: UIImageView!
     @IBOutlet weak var locationNameLabel: UILabel!
     @IBOutlet weak var temperatureLabel: UILabel!
     @IBOutlet weak var descriptionLabel: UILabel!
@@ -34,6 +35,11 @@ class WeatherViewController: UIViewController {
     private func initializeUIBindings() {
         refreshButton.rx_tap
             .bindTo(viewModel.weatherVariable)
+            .addDisposableTo(disposeBag)
+        
+        viewModel.iconObservable
+            .map(UIImage.init)
+            .bindTo(weatherImage.rx_image)
             .addDisposableTo(disposeBag)
         
         viewModel.locationNameObservable

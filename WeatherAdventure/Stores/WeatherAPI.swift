@@ -31,4 +31,22 @@ class WeatherAPI {
             }
         })
     }
+    
+    func fetchWeatherIcon(icon: String) -> Observable<NSData> {
+        return Observable<NSData>.create({ (observer) -> Disposable in
+            let request = Alamofire
+                .request(.GET, "http://openweathermap.org/img/w/\(icon).png")
+                .responseData(completionHandler: { (response) in
+                    if let data = response.data {
+                        observer.onNext(data)
+                        observer.onCompleted()
+                    } else {
+                        observer.onError(response.result.error!)
+                    }
+                })
+            return AnonymousDisposable {
+                request.cancel()
+            }
+        })
+    }
 }

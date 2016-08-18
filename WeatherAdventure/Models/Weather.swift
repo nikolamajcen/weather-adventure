@@ -31,7 +31,7 @@ class Weather: Mappable {
     
     func mapping(map: Map) {
         locationName <- map["name"]
-        iconName <- map["weather.icon"]
+        iconName <- map["weather.0.icon"]
         temperature <- map["main.temp"]
         description <- map["weather.0.description"]
         humidity <- map["main.humidity"]

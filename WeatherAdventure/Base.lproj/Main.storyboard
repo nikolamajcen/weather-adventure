@@ -232,6 +232,7 @@
                         <outlet property="sunriseLabel" destination="3lE-R7-g13" id="i8A-HA-dwQ"/>
                         <outlet property="sunsetLabel" destination="sNE-5r-Buh" id="5yW-SK-fdK"/>
                         <outlet property="temperatureLabel" destination="na7-ew-xoV" id="xEi-qJ-YDK"/>
+                        <outlet property="weatherImage" destination="Y9z-Jr-b2u" id="ALn-Bo-5gE"/>
                         <outlet property="windSpeedLabel" destination="bSq-Yo-BJR" id="nBg-DI-7YQ"/>
                     </connections>
                 </viewController>

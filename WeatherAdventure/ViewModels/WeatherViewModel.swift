@@ -18,7 +18,7 @@ class WeatherViewModel {
     let weatherVariable = Variable<()>()
     
     let locationNameObservable: Observable<String>
-    let iconObservable: Observable<UIImage>
+    let iconObservable: Observable<NSData>
     let temperatureObservable: Observable<String>
     let descriptionObservable: Observable<String>
     let sunriseObservable: Observable<String>
@@ -34,78 +34,34 @@ class WeatherViewModel {
             .flatMapLatest({ (_) -> Observable<Weather> in
                 return weatherAPI.fetchCurrentWeather("Varaždin")
             })
-
-        locationNameObservable = weather.map({ weather in
-            if weather.locationName != nil {
-                return weather.locationName!
-            } else {
-                return "No location provided."
-            }
-        })
         
-        iconObservable = weather.map({ weather in
-            if weather.iconName != nil {
-                // TODO
-                return UIImage()
-            } else {
-                return UIImage()
-            }
-        })
+        iconObservable = weather
+            .flatMap({ (weather) -> Observable<NSData> in
+                return weatherAPI.fetchWeatherIcon(weather.iconName!)
+            })
         
-        temperatureObservable = weather.map({ weather in
-            if weather.temperature != nil {
-                return "\(Int(weather.temperature!))°C"
-            } else {
-                return "--"
-            }
-        })
+        locationNameObservable = weather
+            .map({ $0.locationName != nil ? $0.locationName! : "No location provided." })
         
-        descriptionObservable = weather.map({ weather in
-            if weather.description != nil {
-                return weather.description!
-            } else {
-                return "--"
-            }
-        })
+        temperatureObservable = weather
+            .map({ $0.temperature != nil ? "\(Int($0.temperature!))°C" : "--" })
         
-        sunriseObservable = weather.map({ weather in
-            if weather.sunrise != nil {
-                return "\(weather.sunrise!)"
-            } else {
-                return "--"
-            }
-        })
+        descriptionObservable = weather
+            .map({ $0.description != nil ? $0.description! : "--" })
         
-        sunsetObservable = weather.map({ weather in
-            if weather.sunset != nil {
-                return "\(weather.sunset!)"
-            } else {
-                return "--"
-            }
-        })
+        sunriseObservable = weather
+            .map({ $0.sunrise != nil ? "\($0.sunrise!)" : "--" })
         
-        windSpeedObservable = weather.map({ weather in
-            if weather.windSpeed != nil {
-                return "\(weather.windSpeed!) m/s"
-            } else {
-                return "--"
-            }
-        })
+        sunsetObservable = weather
+            .map({ $0.sunset != nil ? "\($0.sunset!)" : "--" })
         
-        humidityObservable = weather.map({ weather in
-            if weather.humidity != nil {
-                return "\(weather.humidity!)%"
-            } else {
-                return "--"
-            }
-        })
+        windSpeedObservable = weather
+            .map({ $0.windSpeed != nil ? "\($0.windSpeed!) m/s" : "--" })
         
-        pressureObservable = weather.map({ weather in
-            if weather.pressure != nil {
-                return "\(weather.pressure!) hPA"
-            } else {
-                return "--"
-            }
-        })
+        humidityObservable = weather
+            .map({ $0.humidity != nil ? "\($0.humidity!)%" : "--" })
+        
+        pressureObservable = weather
+            .map({ $0.pressure != nil ? "\($0.pressure!) hPA" : "--" })
     }
 }
