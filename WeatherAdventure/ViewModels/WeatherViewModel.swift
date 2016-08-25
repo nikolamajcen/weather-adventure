@@ -25,8 +25,6 @@ class WeatherViewModel {
     let windSpeedObservable: Observable<String>
     let humidityObservable: Observable<String>
     let pressureObservable: Observable<String>
-
-    let forecasts: Observable<[Forecast]>
     
     let weatherVariable = Variable<()>()
     
@@ -36,11 +34,6 @@ class WeatherViewModel {
         weather = weatherVariable.asObservable()
             .flatMapLatest({ _ -> Observable<Weather> in
                 return weatherAPI.fetchCurrentWeather("Varaždin")
-            })
-        
-        forecasts = weatherVariable.asObservable()
-            .flatMapLatest({ (_) -> Observable<[Forecast]> in
-                return weatherAPI.fetchCurrentForecast("Varaždin")
             })
         
         iconObservable = weather
