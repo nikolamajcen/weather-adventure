@@ -32,6 +32,25 @@ class WeatherAPI {
         })
     }
     
+    func fetchCurrentForecast(city: String) -> Observable<[Forecast]> {
+        return Observable<[Forecast]>.create({ (observer) -> Disposable in
+            let request = Alamofire
+                .request(.GET, "http://api.openweathermap.org/data/2.5/forecast",
+                    parameters: ["q":city, "appid": APIConstants.APIKey, "units":"metric"] )
+                .responseJSON(completionHandler: { (response) in
+                    if let value = response.result.value!["list"] {
+                        observer.onNext(Mapper<Forecast>().mapArray(value)!)
+                        observer.onCompleted()
+                    } else {
+                        observer.onError(response.result.error!)
+                    }
+                })
+            return AnonymousDisposable {
+                request.cancel()
+            }
+        })
+    }
+    
     func fetchWeatherIcon(icon: String) -> Observable<NSData> {
         return Observable<NSData>.create({ (observer) -> Disposable in
             let request = Alamofire

@@ -11,7 +11,9 @@ import RxSwift
 import RxCocoa
 
 class WeatherViewController: UIViewController {
-
+    
+    @IBOutlet weak var refreshButton: UIBarButtonItem!
+    
     @IBOutlet weak var weatherImage: UIImageView!
     @IBOutlet weak var locationNameLabel: UILabel!
     @IBOutlet weak var temperatureLabel: UILabel!
@@ -22,14 +24,17 @@ class WeatherViewController: UIViewController {
     @IBOutlet weak var humidityLabel: UILabel!
     @IBOutlet weak var pressureLabel: UILabel!
     
-    @IBOutlet weak var refreshButton: UIBarButtonItem!
-    
     let viewModel = WeatherViewModel(weatherAPI: WeatherAPI())
     let disposeBag = DisposeBag()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         initializeUIBindings()
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(true)
+        navigationController?.navigationBar.hideBorderLine()
     }
     
     private func initializeUIBindings() {
@@ -61,7 +66,7 @@ class WeatherViewController: UIViewController {
         viewModel.sunsetObservable
             .bindTo(sunsetLabel.rx_text)
             .addDisposableTo(disposeBag)
-
+        
         viewModel.windSpeedObservable
             .bindTo(windSpeedLabel.rx_text)
             .addDisposableTo(disposeBag)

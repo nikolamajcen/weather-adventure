@@ -14,17 +14,31 @@ class Weather: Mappable {
     var locationName: String?
     var iconName: String?
     var temperature: Float?
+    var humidity: Float?
+    var pressure: Float?
+    var windSpeed: Float?
+    
+    private var sunriseValue: Double?
+    private var sunsetValue: Double?
+    
     var description: String? {
         didSet {
             description = capitalizeFirstLetter(description!)
         }
     }
-    var humidity: Float?
-    var pressure: Float?
-    var windSpeed: Float?
-    var sunrise: Int?
-    var sunset: Int?
     
+    var sunriseTime: String? {
+        get {
+            return valueToTimeString(sunriseValue!)
+        }
+    }
+    
+    var sunsetTime: String? {
+        get {
+            return valueToTimeString(sunsetValue!)
+        }
+    }
+
     init() { }
     
     required init?(_ map: Map) { }
@@ -37,8 +51,8 @@ class Weather: Mappable {
         humidity <- map["main.humidity"]
         pressure <- map["main.pressure"]
         windSpeed <- map["wind.speed"]
-        sunrise <- map["sys.sunrise"]
-        sunset <- map["sys.sunset"]
+        sunriseValue <- map["sys.sunrise"]
+        sunsetValue <- map["sys.sunset"]
     }
     
     private func capitalizeFirstLetter(sentence: String) -> String {
@@ -46,5 +60,12 @@ class Weather: Mappable {
         let endIndex = sentence.startIndex
         let firstLetter = String(sentence.characters.first! as Character).uppercaseString
         return sentence.stringByReplacingCharactersInRange(startIndex...endIndex, withString: firstLetter)
+    }
+    
+    private func valueToTimeString(value: Double) -> String {
+        let date = NSDate(timeIntervalSince1970: value)
+        let dateFormatter = NSDateFormatter()
+        dateFormatter.dateFormat = "HH:mm"
+        return dateFormatter.stringFromDate(date)
     }
 }

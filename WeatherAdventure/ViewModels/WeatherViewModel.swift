@@ -12,10 +12,9 @@ import RxSwift
 class WeatherViewModel {
     
     private let weatherAPI: WeatherAPI
-    private var weather: Observable<Weather>
-    private let disposeBag = DisposeBag()
     
-    let weatherVariable = Variable<()>()
+    private let disposeBag = DisposeBag()
+    private let weather: Observable<Weather>
     
     let locationNameObservable: Observable<String>
     let iconObservable: Observable<NSData>
@@ -26,17 +25,26 @@ class WeatherViewModel {
     let windSpeedObservable: Observable<String>
     let humidityObservable: Observable<String>
     let pressureObservable: Observable<String>
+
+    let forecasts: Observable<[Forecast]>
+    
+    let weatherVariable = Variable<()>()
     
     init(weatherAPI: WeatherAPI) {
         self.weatherAPI = weatherAPI
         
         weather = weatherVariable.asObservable()
-            .flatMapLatest({ (_) -> Observable<Weather> in
+            .flatMapLatest({ _ -> Observable<Weather> in
                 return weatherAPI.fetchCurrentWeather("Varaždin")
             })
         
+        forecasts = weatherVariable.asObservable()
+            .flatMapLatest({ (_) -> Observable<[Forecast]> in
+                return weatherAPI.fetchCurrentForecast("Varaždin")
+            })
+        
         iconObservable = weather
-            .flatMap({ (weather) -> Observable<NSData> in
+            .flatMap({ weather -> Observable<NSData> in
                 return weatherAPI.fetchWeatherIcon(weather.iconName!)
             })
         
@@ -50,10 +58,10 @@ class WeatherViewModel {
             .map({ $0.description != nil ? $0.description! : "--" })
         
         sunriseObservable = weather
-            .map({ $0.sunrise != nil ? "\($0.sunrise!)" : "--" })
+            .map({ $0.sunriseTime != nil ? $0.sunriseTime! : "--" })
         
         sunsetObservable = weather
-            .map({ $0.sunset != nil ? "\($0.sunset!)" : "--" })
+            .map({ $0.sunsetTime != nil ? $0.sunsetTime! : "--" })
         
         windSpeedObservable = weather
             .map({ $0.windSpeed != nil ? "\($0.windSpeed!) m/s" : "--" })
@@ -63,5 +71,5 @@ class WeatherViewModel {
         
         pressureObservable = weather
             .map({ $0.pressure != nil ? "\($0.pressure!) hPA" : "--" })
-    }
+    }    
 }
