@@ -9,6 +9,7 @@
 import UIKit
 import RxSwift
 import RxCocoa
+import RxDataSources
 import MBProgressHUD
 
 class ForecastViewController: UIViewController {
@@ -18,8 +19,11 @@ class ForecastViewController: UIViewController {
     let viewModel = ForecastViewModel(weatherAPI: WeatherAPI())
     let disposeBag = DisposeBag()
     
+    let dataSource = RxTableViewSectionedReloadDataSource<DailyForecast>()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        configureTableDataSource()
         initializeUI()
         initializeUIBindings()
     }
@@ -36,10 +40,21 @@ class ForecastViewController: UIViewController {
             .addDisposableTo(disposeBag)
         
         viewModel.forecast
-            .bindTo(forecastTableView.rx_itemsWithCellIdentifier("ForecastCell", cellType: ForecastTableViewCell.self))
-            { (row, element, cell) in
-                cell.forecast = element
-            }
+            .bindTo(forecastTableView.rx_itemsWithDataSource(dataSource))
             .addDisposableTo(disposeBag)
     }
+    
+    private func configureTableDataSource() {
+        dataSource.configureCell = { dataSource, tableView, indexPath, item  in
+            let cell = tableView
+                .dequeueReusableCellWithIdentifier("ForecastCell", forIndexPath: indexPath) as! ForecastTableViewCell
+            cell.forecast = item
+            return cell
+        }
+        
+        dataSource.titleForHeaderInSection =  { dataSource, index in
+            return dataSource.sectionModels[index].header
+        }
+    }
+
 }

@@ -24,4 +24,11 @@ class Forecast: Mappable {
         iconName <- map["weather.0.icon"]
         temperature <- map["main.temp"]
     }
+    
+    func getDate() -> String{
+        let formatter = NSDateFormatter()
+        formatter.dateFormat = "yyyyMMdd dd.MM.yyyy."
+        let date = NSDate(timeIntervalSince1970: time!)
+        return formatter.stringFromDate(date)
+    }
 }
