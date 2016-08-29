@@ -9,6 +9,7 @@
 import UIKit
 import RxSwift
 import RxCocoa
+import MBProgressHUD
 
 class WeatherViewController: UIViewController {
     
@@ -29,6 +30,7 @@ class WeatherViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        initializeUI()
         initializeUIBindings()
     }
     
@@ -37,8 +39,21 @@ class WeatherViewController: UIViewController {
         navigationController?.navigationBar.hideBorderLine()
     }
     
+    private func initializeUI() {
+        MBProgressHUD.showHUDAddedTo(view, animated: true)
+    }
+    
     private func initializeUIBindings() {
+        viewModel.weatherVariable.asObservable()
+            .subscribe({ (_) in
+                MBProgressHUD.hideHUDForView(self.view, animated: true)
+            })
+            .addDisposableTo(disposeBag)
+        
         refreshButton.rx_tap
+            .map {
+                MBProgressHUD.showHUDAddedTo(self.view, animated: true)
+            }
             .bindTo(viewModel.weatherVariable)
             .addDisposableTo(disposeBag)
         

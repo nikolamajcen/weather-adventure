@@ -9,6 +9,7 @@
 import UIKit
 import RxSwift
 import RxCocoa
+import MBProgressHUD
 
 class ForecastViewController: UIViewController {
     
@@ -19,10 +20,21 @@ class ForecastViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        initializeUI()
         initializeUIBindings()
     }
     
+    private func initializeUI() {
+        MBProgressHUD.showHUDAddedTo(view, animated: true)
+    }
+    
     private func initializeUIBindings() {
+        viewModel.forecastVariable.asObservable()
+            .subscribe({ (_) in
+                MBProgressHUD.hideHUDForView(self.view, animated: true)
+            })
+            .addDisposableTo(disposeBag)
+        
         viewModel.forecast
             .bindTo(forecastTableView.rx_itemsWithCellIdentifier("ForecastCell", cellType: ForecastTableViewCell.self))
             { (row, element, cell) in

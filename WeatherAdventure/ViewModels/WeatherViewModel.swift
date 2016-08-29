@@ -35,6 +35,7 @@ class WeatherViewModel {
             .flatMapLatest({ _ -> Observable<Weather> in
                 return weatherAPI.fetchCurrentWeather("Varaždin")
             })
+            .shareReplay(1)
         
         iconObservable = weather
             .flatMap({ weather -> Observable<NSData> in

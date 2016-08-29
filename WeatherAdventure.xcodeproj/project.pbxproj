@@ -196,6 +196,7 @@
 				TargetAttributes = {
 					4F63C8391D5F2D4A0074CFA8 = {
 						CreatedOnToolsVersion = 7.3.1;
+						DevelopmentTeam = UR88X5AHVX;
 					};
 				};
 			};
@@ -411,10 +412,13 @@
 			baseConfigurationReference = 861A355F1FD99F454202688E /* Pods-WeatherAdventure.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = "$(SRCROOT)/WeatherAdventure/Supporting Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.nikolamajcen.WeatherAdventure;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
 		};
@@ -423,10 +427,13 @@
 			baseConfigurationReference = 12FFE3DE2C775775D9F9D6B2 /* Pods-WeatherAdventure.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = "$(SRCROOT)/WeatherAdventure/Supporting Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.nikolamajcen.WeatherAdventure;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
 		};
