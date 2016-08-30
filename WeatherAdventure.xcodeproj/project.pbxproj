@@ -15,6 +15,8 @@
 		4F0554881D6F47E6002BFA12 /* ForecastTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F0554871D6F47E6002BFA12 /* ForecastTableViewCell.swift */; };
 		4F2009E11D75CC98008969EB /* UserDefaultsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F2009E01D75CC98008969EB /* UserDefaultsManager.swift */; };
 		4F2009E31D75CFDA008969EB /* UnitsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F2009E21D75CFDA008969EB /* UnitsTableViewController.swift */; };
+		4F2009E51D75FA95008969EB /* LocationAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F2009E41D75FA95008969EB /* LocationAPI.swift */; };
+		4F2009E71D75FEB1008969EB /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F2009E61D75FEB1008969EB /* Location.swift */; };
 		4F63C83E1D5F2D4A0074CFA8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F63C83D1D5F2D4A0074CFA8 /* AppDelegate.swift */; };
 		4F63C8401D5F2D4A0074CFA8 /* WeatherViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F63C83F1D5F2D4A0074CFA8 /* WeatherViewController.swift */; };
 		4F63C8431D5F2D4A0074CFA8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4F63C8411D5F2D4A0074CFA8 /* Main.storyboard */; };
@@ -39,6 +41,8 @@
 		4F0554871D6F47E6002BFA12 /* ForecastTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ForecastTableViewCell.swift; sourceTree = "<group>"; };
 		4F2009E01D75CC98008969EB /* UserDefaultsManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDefaultsManager.swift; sourceTree = "<group>"; };
 		4F2009E21D75CFDA008969EB /* UnitsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UnitsTableViewController.swift; sourceTree = "<group>"; };
+		4F2009E41D75FA95008969EB /* LocationAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationAPI.swift; sourceTree = "<group>"; };
+		4F2009E61D75FEB1008969EB /* Location.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
 		4F63C83A1D5F2D4A0074CFA8 /* WeatherAdventure.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WeatherAdventure.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4F63C83D1D5F2D4A0074CFA8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4F63C83F1D5F2D4A0074CFA8 /* WeatherViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherViewController.swift; sourceTree = "<group>"; };
@@ -134,6 +138,7 @@
 			children = (
 				4FC80C1B1D74BD1A00923330 /* DailyForecast.swift */,
 				4FAE03671D66310F00B5C7D7 /* Forecast.swift */,
+				4F2009E61D75FEB1008969EB /* Location.swift */,
 				4F63C8541D5F2F550074CFA8 /* Weather.swift */,
 			);
 			path = Models;
@@ -176,6 +181,7 @@
 			isa = PBXGroup;
 			children = (
 				4F7E4F2D1D5F59ED0098FEF5 /* APIConstants.swift */,
+				4F2009E41D75FA95008969EB /* LocationAPI.swift */,
 				4F63C8591D5F37B70074CFA8 /* WeatherAPI.swift */,
 			);
 			path = Stores;
@@ -311,6 +317,7 @@
 				4FAE03681D66310F00B5C7D7 /* Forecast.swift in Sources */,
 				4F63C85A1D5F37B70074CFA8 /* WeatherAPI.swift in Sources */,
 				4F63C8401D5F2D4A0074CFA8 /* WeatherViewController.swift in Sources */,
+				4F2009E71D75FEB1008969EB /* Location.swift in Sources */,
 				4F7E4F2E1D5F59ED0098FEF5 /* APIConstants.swift in Sources */,
 				4F0554841D6F3F23002BFA12 /* ForecastViewController.swift in Sources */,
 				4F63C8581D5F324E0074CFA8 /* WeatherViewModel.swift in Sources */,
@@ -321,6 +328,7 @@
 				4F0554821D6F38B2002BFA12 /* UINavigationBarExtension.swift in Sources */,
 				4F63C8551D5F2F550074CFA8 /* Weather.swift in Sources */,
 				4F63C83E1D5F2D4A0074CFA8 /* AppDelegate.swift in Sources */,
+				4F2009E51D75FA95008969EB /* LocationAPI.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

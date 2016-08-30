@@ -10,9 +10,15 @@ import Foundation
 
 class APIConstants {
     
-    static var APIKey: String! {
+    static var WeatherAPIKey: String! {
         get {
-            return readConfigurationValue("apiKey", file: "API", type: "plist")
+            return readConfigurationValue("weatherApiKey", file: "API", type: "plist")
+        }
+    }
+    
+    static var LocationAPIKey: String! {
+        get {
+            return readConfigurationValue("locationApiKey", file: "API", type: "plist")
         }
     }
     

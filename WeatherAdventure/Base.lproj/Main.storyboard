@@ -399,8 +399,19 @@
                         <color key="backgroundColor" red="0.90823972230000005" green="0.92638683320000004" blue="0.93171715740000005" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
                     <navigationItem key="navigationItem" title="Location" id="iA5-5s-tCk"/>
+                    <connections>
+                        <outlet property="searchDisplayController" destination="AeD-mK-hcx" id="wwE-fK-IiN"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="L66-0r-AgJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <searchDisplayController id="AeD-mK-hcx">
+                    <connections>
+                        <outlet property="delegate" destination="B9Q-wT-Eo2" id="Rd0-do-TxG"/>
+                        <outlet property="searchContentsController" destination="B9Q-wT-Eo2" id="i4L-6N-NCo"/>
+                        <outlet property="searchResultsDataSource" destination="B9Q-wT-Eo2" id="cJY-2h-Hma"/>
+                        <outlet property="searchResultsDelegate" destination="B9Q-wT-Eo2" id="VYJ-Yq-NWJ"/>
+                    </connections>
+                </searchDisplayController>
             </objects>
             <point key="canvasLocation" x="2647" y="-624"/>
         </scene>
