@@ -56,5 +56,4 @@ class ForecastViewController: UIViewController {
             return dataSource.sectionModels[index].header
         }
     }
-
 }

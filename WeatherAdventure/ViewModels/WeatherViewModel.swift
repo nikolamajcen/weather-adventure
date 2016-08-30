@@ -46,7 +46,7 @@ class WeatherViewModel {
             .map({ $0.locationName != nil ? $0.locationName! : "No location provided." })
         
         temperatureObservable = weather
-            .map({ $0.temperature != nil ? "\(Int($0.temperature!))°C" : "--" })
+            .map({ $0.temperature != nil ? "\(Int($0.temperature!))\($0.temperatureUnit)" : "--" })
         
         descriptionObservable = weather
             .map({ $0.description != nil ? $0.description! : "--" })
@@ -58,7 +58,7 @@ class WeatherViewModel {
             .map({ $0.sunsetTime != nil ? $0.sunsetTime! : "--" })
         
         windSpeedObservable = weather
-            .map({ $0.windSpeed != nil ? "\($0.windSpeed!) m/s" : "--" })
+            .map({ $0.windSpeed != nil ? "\($0.windSpeed!) \($0.windSpeedUnit)" : "--" })
         
         humidityObservable = weather
             .map({ $0.humidity != nil ? "\($0.humidity!)%" : "--" })

@@ -38,6 +38,28 @@ class Weather: Mappable {
             return valueToTimeString(sunsetValue!)
         }
     }
+    
+    var temperatureUnit: String! {
+        get {
+            switch UserDefaultsManager.unitsType {
+            case .Metric:
+                return "°C"
+            case .Imperial:
+                return "°F"
+            }
+        }
+    }
+    
+    var windSpeedUnit: String! {
+        get {
+            switch UserDefaultsManager.unitsType {
+            case .Metric:
+                return "m/s"
+            case .Imperial:
+                return "M/h"
+            }
+        }
+    }
 
     init() { }
     
