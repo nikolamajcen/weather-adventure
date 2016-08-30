@@ -388,7 +388,7 @@
         <!--Location-->
         <scene sceneID="ATp-zX-0NQ">
             <objects>
-                <viewController id="B9Q-wT-Eo2" sceneMemberID="viewController">
+                <viewController id="B9Q-wT-Eo2" customClass="LocationFinderViewController" customModule="WeatherAdventure" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="byh-X4-lg8"/>
                         <viewControllerLayoutGuide type="bottom" id="bws-ct-Vu8"/>
@@ -396,22 +396,62 @@
                     <view key="view" contentMode="scaleToFill" id="NNa-h7-YDs">
                         <rect key="frame" x="0.0" y="64" width="600" height="536"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Evw-M0-eQw">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="536"/>
+                                <color key="backgroundColor" red="0.90823972230000005" green="0.92638683320000004" blue="0.93171715740000005" alpha="1" colorSpace="calibratedRGB"/>
+                                <searchBar key="tableHeaderView" contentMode="redraw" searchBarStyle="minimal" id="kzU-qb-huE">
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                    <color key="barTintColor" red="0.90823972230000005" green="0.92638683320000004" blue="0.93171715740000005" alpha="1" colorSpace="calibratedRGB"/>
+                                    <textInputTraits key="textInputTraits"/>
+                                </searchBar>
+                                <view key="tableFooterView" contentMode="scaleToFill" id="VhD-0n-tXR" userLabel="Footer">
+                                    <rect key="frame" x="0.0" y="580" width="600" height="0.0"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </view>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="LocationCell" textLabel="kmk-ku-8wa" style="IBUITableViewCellStyleDefault" id="8J5-zw-yZx" customClass="LocationTableViewCell" customModule="WeatherAdventure" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="72" width="600" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="8J5-zw-yZx" id="5fp-Ds-Jbe">
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="43"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="kmk-ku-8wa">
+                                                    <rect key="frame" x="15" y="0.0" width="570" height="43"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <color key="backgroundColor" red="0.90823972230000005" green="0.92638683320000004" blue="0.93171715740000005" alpha="1" colorSpace="calibratedRGB"/>
+                                        </tableViewCellContentView>
+                                        <color key="backgroundColor" red="0.90823972230000005" green="0.92638683320000004" blue="0.93171715740000005" alpha="1" colorSpace="calibratedRGB"/>
+                                        <connections>
+                                            <outlet property="locationNameLabel" destination="kmk-ku-8wa" id="nQv-PQ-cKk"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
+                        </subviews>
                         <color key="backgroundColor" red="0.90823972230000005" green="0.92638683320000004" blue="0.93171715740000005" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="Evw-M0-eQw" secondAttribute="trailing" id="3Vp-Hz-1NW"/>
+                            <constraint firstItem="bws-ct-Vu8" firstAttribute="top" secondItem="Evw-M0-eQw" secondAttribute="bottom" id="4HH-T7-VSK"/>
+                            <constraint firstItem="Evw-M0-eQw" firstAttribute="top" secondItem="byh-X4-lg8" secondAttribute="bottom" id="Yjw-T3-jJw"/>
+                            <constraint firstItem="Evw-M0-eQw" firstAttribute="leading" secondItem="NNa-h7-YDs" secondAttribute="leading" id="fDk-Yq-hEB"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Location" id="iA5-5s-tCk"/>
                     <connections>
-                        <outlet property="searchDisplayController" destination="AeD-mK-hcx" id="wwE-fK-IiN"/>
+                        <outlet property="searchBar" destination="kzU-qb-huE" id="9yV-rk-uFJ"/>
+                        <outlet property="tableView" destination="Evw-M0-eQw" id="JwI-3v-kKW"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="L66-0r-AgJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <searchDisplayController id="AeD-mK-hcx">
-                    <connections>
-                        <outlet property="delegate" destination="B9Q-wT-Eo2" id="Rd0-do-TxG"/>
-                        <outlet property="searchContentsController" destination="B9Q-wT-Eo2" id="i4L-6N-NCo"/>
-                        <outlet property="searchResultsDataSource" destination="B9Q-wT-Eo2" id="cJY-2h-Hma"/>
-                        <outlet property="searchResultsDelegate" destination="B9Q-wT-Eo2" id="VYJ-Yq-NWJ"/>
-                    </connections>
-                </searchDisplayController>
             </objects>
             <point key="canvasLocation" x="2647" y="-624"/>
         </scene>

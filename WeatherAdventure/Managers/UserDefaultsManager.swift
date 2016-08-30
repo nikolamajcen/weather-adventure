@@ -16,15 +16,19 @@ enum UnitType: String {
 
 class UserDefaultsManager {
     
-    static var location: String! {
+    static var location: Location! {
         get {
             let defaults = initializeUserDefaults()
-            let location = defaults.stringForKey("location")
-            return location ?? ""
+            guard let data = defaults.objectForKey("location") else {
+                return nil
+            }
+            let location = NSKeyedUnarchiver.unarchiveObjectWithData(data as! NSData) as! Location
+            return location
         }
         set {
             let defaults = initializeUserDefaults()
-            defaults.setValue(newValue, forKey: "location")
+            let data = NSKeyedArchiver.archivedDataWithRootObject(newValue)
+            defaults.setObject(data, forKey: "location")
         }
     }
     

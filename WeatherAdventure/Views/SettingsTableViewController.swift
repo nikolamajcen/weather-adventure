@@ -19,7 +19,11 @@ class SettingsTableViewController: UITableViewController {
     }
     
     private func initializeUI() {
-        locationNameLabel.text = UserDefaultsManager.location.capitalizedString
+        if let location = UserDefaultsManager.location {
+            locationNameLabel.text = location.name
+        } else {
+            locationNameLabel.text = ""
+        }
         unitsTypeLabel.text = UserDefaultsManager.unitsType.rawValue.capitalizedString
     }
 }

@@ -13,14 +13,14 @@ import RxSwift
 
 class LocationAPI {
     
-    func fetchLocation(location: String) -> Observable<Location> {
-        return Observable<Location>.create({ (observer) -> Disposable in
+    func fetchLocation(location: String) -> Observable<[Location]> {
+        return Observable<[Location]>.create({ (observer) -> Disposable in
             let request = Alamofire
                 .request(.GET, "https://maps.googleapis.com/maps/api/geocode/json",
                     parameters: ["address":location, "key":APIConstants.LocationAPIKey])
                 .responseJSON(completionHandler: { (response) in
-                    if let value = response.result.value {
-                        observer.onNext(Mapper<Location>().map(value)!)
+                    if let value = response.result.value!["results"] {
+                        observer.onNext(Mapper<Location>().mapArray(value!)!)
                         observer.onCompleted()
                     } else {
                         observer.onError(response.result.error!)
