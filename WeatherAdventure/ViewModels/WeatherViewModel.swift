@@ -27,11 +27,16 @@ class WeatherViewModel {
     let pressureObservable: Observable<String>
     let forecastObservable: Observable<Bool>
     
-    let weatherVariable = Variable<()>()
+    let weatherVariable = Variable<()>(())
     
     init(weatherAPI: WeatherAPI) {
         self.weatherAPI = weatherAPI
         
+        StateManager.instance.stateChanged
+            .map { _ in () }
+            .bindTo(weatherVariable)
+            .addDisposableTo(disposeBag)
+ 
         weather = weatherVariable.asObservable()
             .flatMapLatest({ _ -> Observable<Weather> in
                 if Reachability.isConnectedToNetwork() == true && UserDefaultsManager.location != nil {
@@ -50,9 +55,7 @@ class WeatherViewModel {
             })
         
         locationNameObservable = weather
-            .map({ _ in
-                UserDefaultsManager.location != nil ? UserDefaultsManager.location.name! : "No location provided."
-            })
+            .map ({ _ in UserDefaultsManager.location != nil ? UserDefaultsManager.location.name! : "No location provided." })
         
         temperatureObservable = weather
             .map({ $0.temperature != nil ? "\(Int($0.temperature!))\($0.temperatureUnit)" : "--" })

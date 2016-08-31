@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import RxSwift
 
 class UnitsTableViewController: UITableViewController {
     
@@ -46,6 +47,7 @@ class UnitsTableViewController: UITableViewController {
         default:
             break
         }
+        StateManager.instance.stateChanged.onNext(true)
     }
     
     private func removeAllCheckmarks(indexPath: NSIndexPath) {

@@ -46,15 +46,11 @@ class WeatherViewController: UIViewController {
     
     private func initializeUIBindings() {
         viewModel.weatherVariable.asObservable()
-            .subscribe({ (_) in
-                MBProgressHUD.hideHUDForView(self.view, animated: true)
-            })
+            .subscribe { [unowned self] _ in MBProgressHUD.hideHUDForView(self.view, animated: true) }
             .addDisposableTo(disposeBag)
         
         refreshButton.rx_tap
-            .map {
-                MBProgressHUD.showHUDAddedTo(self.view, animated: true)
-            }
+            .map { [unowned self] in MBProgressHUD.showHUDAddedTo(self.view, animated: true) }
             .bindTo(viewModel.weatherVariable)
             .addDisposableTo(disposeBag)
         
