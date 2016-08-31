@@ -24,7 +24,10 @@ class LocationViewModel {
         
         locationsObservable = searchTextVariable.asObservable()
             .flatMapLatest({ name -> Observable<[Location]> in
-                return locationAPI.fetchLocation(name)
+                if Reachability.isConnectedToNetwork() == true {
+                    return locationAPI.fetchLocation(name)
+                }
+                return Observable.just([Location]())
             })
         
         newLocationVariable.asObservable()

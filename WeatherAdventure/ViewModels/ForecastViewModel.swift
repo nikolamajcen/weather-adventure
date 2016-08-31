@@ -22,7 +22,10 @@ class ForecastViewModel {
         
         forecast = forecastVariable.asObservable()
             .flatMapLatest { _ -> Observable<[Forecast]> in
-                return weatherAPI.fetchCurrentForecast(UserDefaultsManager.location.name!)
+                if Reachability.isConnectedToNetwork() == true {
+                    return weatherAPI.fetchCurrentForecast(UserDefaultsManager.location.name!)
+                }
+                return Observable.just([Forecast]())
             }
             .flatMap({ (forecast) -> Observable<[DailyForecast]> in
                 let days = Array(Set(forecast.map { $0.getDate() }).sort())

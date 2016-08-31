@@ -34,10 +34,10 @@ class WeatherViewModel {
         
         weather = weatherVariable.asObservable()
             .flatMapLatest({ _ -> Observable<Weather> in
-                if (UserDefaultsManager.location == nil) {
-                    return Observable.just(Weather())
+                if Reachability.isConnectedToNetwork() == true && UserDefaultsManager.location != nil {
+                    return weatherAPI.fetchCurrentWeather(UserDefaultsManager.location.name!)
                 }
-                return weatherAPI.fetchCurrentWeather(UserDefaultsManager.location.name!)
+                return Observable.just(Weather())
             })
             .shareReplay(1)
         
@@ -50,7 +50,9 @@ class WeatherViewModel {
             })
         
         locationNameObservable = weather
-            .map({ $0.locationName != nil ? UserDefaultsManager.location.name! : "No location provided." })
+            .map({ _ in
+                UserDefaultsManager.location != nil ? UserDefaultsManager.location.name! : "No location provided."
+            })
         
         temperatureObservable = weather
             .map({ $0.temperature != nil ? "\(Int($0.temperature!))\($0.temperatureUnit)" : "--" })
@@ -75,5 +77,5 @@ class WeatherViewModel {
         
         forecastObservable = weather
             .map({ $0.temperature != nil ? true : false })
-    }    
+    }
 }
