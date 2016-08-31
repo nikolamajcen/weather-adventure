@@ -22,7 +22,7 @@ class ForecastViewModel {
         
         forecast = forecastVariable.asObservable()
             .flatMapLatest { _ -> Observable<[Forecast]> in
-                return weatherAPI.fetchCurrentForecast("Varazdin")
+                return weatherAPI.fetchCurrentForecast(UserDefaultsManager.location.name!)
             }
             .flatMap({ (forecast) -> Observable<[DailyForecast]> in
                 let days = Array(Set(forecast.map { $0.getDate() }).sort())

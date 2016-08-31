@@ -18,8 +18,8 @@ class Weather: Mappable {
     var pressure: Float?
     var windSpeed: Float?
     
-    private var sunriseValue: Double?
-    private var sunsetValue: Double?
+    var sunriseValue: Double?
+    var sunsetValue: Double?
     
     var description: String? {
         didSet {

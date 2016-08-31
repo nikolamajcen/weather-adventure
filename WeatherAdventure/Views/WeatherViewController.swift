@@ -24,6 +24,7 @@ class WeatherViewController: UIViewController {
     @IBOutlet weak var windSpeedLabel: UILabel!
     @IBOutlet weak var humidityLabel: UILabel!
     @IBOutlet weak var pressureLabel: UILabel!
+    @IBOutlet weak var forecastButton: UIButton!
     
     let viewModel = WeatherViewModel(weatherAPI: WeatherAPI())
     let disposeBag = DisposeBag()
@@ -92,6 +93,10 @@ class WeatherViewController: UIViewController {
         
         viewModel.pressureObservable
             .bindTo(pressureLabel.rx_text)
+            .addDisposableTo(disposeBag)
+        
+        viewModel.forecastObservable
+            .bindTo(forecastButton.rx_enabled)
             .addDisposableTo(disposeBag)
     }
 }
