@@ -23,6 +23,11 @@ class LocationFinderViewController: UIViewController {
         initializeBindings()
     }
     
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(true)
+        searchBar.becomeFirstResponder()
+    }
+    
     private func initializeBindings() {
         viewModel.locationsObservable
             .bindTo(tableView.rx_itemsWithCellIdentifier("LocationCell", cellType: LocationTableViewCell.self)){ (_, item, cell) in
