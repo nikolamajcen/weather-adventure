@@ -11,9 +11,9 @@ import RxSwift
 
 class ForecastViewModel {
     
-    private let weatherAPI: WeatherAPI
+    fileprivate let weatherAPI: WeatherAPI
     
-    private let disposeBag = DisposeBag()
+    fileprivate let disposeBag = DisposeBag()
     let forecastVariable = Variable<[Forecast]>([Forecast]())
     let forecast: Observable<[DailyForecast]>
     
@@ -28,7 +28,7 @@ class ForecastViewModel {
                 return Observable.just([Forecast]())
             }
             .flatMap({ (forecast) -> Observable<[DailyForecast]> in
-                let days = Array(Set(forecast.map { $0.getDate() }).sort())
+                let days = Array(Set(forecast.map { $0.getDate() }).sorted())
                 
                 let forecasts = days.map({ (day) in
                     return forecast.filter { (forecast) in
@@ -38,8 +38,8 @@ class ForecastViewModel {
                 
                 var dailyForecast = [DailyForecast]()
                 for index in 0..<days.count {
-                    let dayForecast = DailyForecast(header: String(days[index].characters.split(" ")[1]),
-                                                    items: forecasts[index])
+                    let date = String((days[index] as String).characters.split(separator: " ")[1])
+                    let dayForecast = DailyForecast(header: date, items: forecasts[index])
                     dailyForecast.append(dayForecast)
                 }
                 return Observable.just(dailyForecast)

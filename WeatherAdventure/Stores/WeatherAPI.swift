@@ -13,57 +13,69 @@ import RxSwift
 
 class WeatherAPI {
     
-    func fetchCurrentWeather(city: String) -> Observable<Weather> {
+    func fetchCurrentWeather(_ city: String) -> Observable<Weather> {
         return Observable<Weather>.create({ (observer) -> Disposable in
             let request = Alamofire
-                .request(.GET, "http://api.openweathermap.org/data/2.5/weather",
-                    parameters: ["q": city, "appid": APIConstants.WeatherAPIKey, "units": UserDefaultsManager.unitsType.rawValue])
+                .request("http://api.openweathermap.org/data/2.5/weather",
+                         method: .get,
+                         parameters: [
+                            "q": city,
+                            "appid": APIConstants.WeatherAPIKey,
+                            "units": UserDefaultsManager.unitsType.rawValue
+                    ]
+                )
                 .responseJSON(completionHandler: { (response) in
                     if let value = response.result.value {
-                        observer.onNext(Mapper<Weather>().map(value)!)
+                        observer.onNext(Mapper<Weather>().map(JSONObject: value)!)
                         observer.onCompleted()
                     } else {
                         observer.onError(response.result.error!)
                     }
                 })
-            return AnonymousDisposable {
+            return Disposables.create {
                 request.cancel()
             }
         })
     }
     
-    func fetchCurrentForecast(city: String) -> Observable<[Forecast]> {
+    func fetchCurrentForecast(_ city: String) -> Observable<[Forecast]> {
         return Observable<[Forecast]>.create({ (observer) -> Disposable in
             let request = Alamofire
-                .request(.GET, "http://api.openweathermap.org/data/2.5/forecast",
-                    parameters: ["q": city, "appid": APIConstants.WeatherAPIKey, "units": UserDefaultsManager.unitsType.rawValue])
+                .request("http://api.openweathermap.org/data/2.5/forecast",
+                         method: .get,
+                         parameters: [
+                            "q": city,
+                            "appid": APIConstants.WeatherAPIKey,
+                            "units": UserDefaultsManager.unitsType.rawValue
+                    ]
+                )
                 .responseJSON(completionHandler: { (response) in
-                    if let value = response.result.value!["list"] {
-                        observer.onNext(Mapper<Forecast>().mapArray(value)!)
+                    if let value = (response.result.value as! [String:AnyObject])["list"] {
+                        observer.onNext(Mapper<Forecast>().mapArray(JSONObject: value)!)
                         observer.onCompleted()
                     } else {
                         observer.onError(response.result.error!)
                     }
                 })
-            return AnonymousDisposable {
+            return Disposables.create {
                 request.cancel()
             }
         })
     }
     
-    func fetchWeatherIcon(icon: String) -> Observable<NSData> {
+    func fetchWeatherIcon(_ icon: String) -> Observable<NSData> {
         return Observable<NSData>.create({ (observer) -> Disposable in
             let request = Alamofire
-                .request(.GET, "http://openweathermap.org/img/w/\(icon).png")
+                .request("http://openweathermap.org/img/w/\(icon).png", method: .get)
                 .responseData(completionHandler: { (response) in
                     if let data = response.data {
-                        observer.onNext(data)
+                        observer.onNext(data as NSData)
                         observer.onCompleted()
                     } else {
                         observer.onError(response.result.error!)
                     }
                 })
-            return AnonymousDisposable {
+            return Disposables.create {
                 request.cancel()
             }
         })

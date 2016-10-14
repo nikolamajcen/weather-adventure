@@ -28,26 +28,27 @@ class ForecastViewController: UIViewController {
         initializeUIBindings()
     }
     
-    private func initializeUI() {
-        MBProgressHUD.showHUDAddedTo(view, animated: true)
+    fileprivate func initializeUI() {
+        MBProgressHUD.showAdded(to: view, animated: true)
     }
     
-    private func initializeUIBindings() {
+    fileprivate func initializeUIBindings() {
         viewModel.forecastVariable.asObservable()
             .subscribe({ (_) in
-                MBProgressHUD.hideHUDForView(self.view, animated: true)
+                MBProgressHUD.hide(for: self.view, animated: true)
             })
             .addDisposableTo(disposeBag)
         
         viewModel.forecast
-            .bindTo(forecastTableView.rx_itemsWithDataSource(dataSource))
+            .map { $0 }
+            .bindTo(forecastTableView.rx.items(dataSource: dataSource))
             .addDisposableTo(disposeBag)
     }
     
-    private func configureTableDataSource() {
+    fileprivate func configureTableDataSource() {
         dataSource.configureCell = { dataSource, tableView, indexPath, item  in
             let cell = tableView
-                .dequeueReusableCellWithIdentifier("ForecastCell", forIndexPath: indexPath) as! ForecastTableViewCell
+                .dequeueReusableCell(withIdentifier: "ForecastCell", for: indexPath) as! ForecastTableViewCell
             cell.forecast = item
             return cell
         }

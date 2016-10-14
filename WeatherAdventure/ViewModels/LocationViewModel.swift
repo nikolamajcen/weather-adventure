@@ -11,9 +11,9 @@ import RxSwift
 
 class LocationViewModel {
     
-    private let locationAPI: LocationAPI
+    fileprivate let locationAPI: LocationAPI
     
-    private let disposeBag = DisposeBag()
+    fileprivate let disposeBag = DisposeBag()
     
     let locationsObservable: Observable<[Location]>
     let searchTextVariable = Variable<String>("")

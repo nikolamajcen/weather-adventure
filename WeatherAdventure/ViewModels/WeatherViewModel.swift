@@ -11,10 +11,10 @@ import RxSwift
 
 class WeatherViewModel {
     
-    private let weatherAPI: WeatherAPI
+    fileprivate let weatherAPI: WeatherAPI
     
-    private let disposeBag = DisposeBag()
-    private let weather: Observable<Weather>
+    fileprivate let disposeBag = DisposeBag()
+    fileprivate let weather: Observable<Weather>
     
     let locationNameObservable: Observable<String>
     let iconObservable: Observable<NSData>

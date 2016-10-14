@@ -15,40 +15,41 @@ class LocationFinderViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var searchBar: UISearchBar!
     
-    private let viewModel = LocationViewModel(locationAPI: LocationAPI())
-    private let disposeBag = DisposeBag()
+    fileprivate let viewModel = LocationViewModel(locationAPI: LocationAPI())
+    fileprivate let disposeBag = DisposeBag()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         initializeBindings()
     }
     
-    override func viewDidAppear(animated: Bool) {
+    override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
         searchBar.becomeFirstResponder()
     }
     
-    private func initializeBindings() {
+    fileprivate func initializeBindings() {
         viewModel.locationsObservable
-            .bindTo(tableView.rx_itemsWithCellIdentifier("LocationCell", cellType: LocationTableViewCell.self)){ (_, item, cell) in
+            .bindTo(tableView.rx.items(cellIdentifier: "LocationCell", cellType: LocationTableViewCell.self))
+            { (_, item, cell) in
                 cell.location = item
             }
             .addDisposableTo(disposeBag)
         
-        searchBar.rx_text
+        searchBar.rx.text
             .throttle(0.3, scheduler: MainScheduler.instance)
             .distinctUntilChanged()
             .bindTo(viewModel.searchTextVariable)
             .addDisposableTo(disposeBag)
         
-        tableView.rx_modelSelected(Location.self)
+        tableView.rx.modelSelected(Location.self)
             .bindTo(viewModel.newLocationVariable)
             .addDisposableTo(disposeBag)
         
-        tableView.rx_itemSelected
+        tableView.rx.itemSelected
             .subscribeNext { [unowned self] (indexPath) in
-                self.tableView.deselectRowAtIndexPath(indexPath, animated: true)
-                self.navigationController?.popViewControllerAnimated(true)
+                self.tableView.deselectRow(at: indexPath, animated: true)
+                self.navigationController?.popViewController(animated: true)
             }
             .addDisposableTo(disposeBag)
     }

@@ -13,17 +13,17 @@ class SettingsTableViewController: UITableViewController {
     @IBOutlet weak var locationNameLabel: UILabel!
     @IBOutlet weak var unitsTypeLabel: UILabel!
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         initializeUI()
     }
     
-    private func initializeUI() {
+    fileprivate func initializeUI() {
         if let location = UserDefaultsManager.location {
             locationNameLabel.text = location.name
         } else {
             locationNameLabel.text = ""
         }
-        unitsTypeLabel.text = UserDefaultsManager.unitsType.rawValue.capitalizedString
+        unitsTypeLabel.text = UserDefaultsManager.unitsType.rawValue.capitalized
     }
 }

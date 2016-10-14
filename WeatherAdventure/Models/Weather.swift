@@ -63,7 +63,7 @@ class Weather: Mappable {
 
     init() { }
     
-    required init?(_ map: Map) { }
+    required init?(map: Map) { }
     
     func mapping(map: Map) {
         locationName <- map["name"]
@@ -77,17 +77,17 @@ class Weather: Mappable {
         sunsetValue <- map["sys.sunset"]
     }
     
-    private func capitalizeFirstLetter(sentence: String) -> String {
+    fileprivate func capitalizeFirstLetter(_ sentence: String) -> String {
         let startIndex = sentence.startIndex
         let endIndex = sentence.startIndex
-        let firstLetter = String(sentence.characters.first! as Character).uppercaseString
-        return sentence.stringByReplacingCharactersInRange(startIndex...endIndex, withString: firstLetter)
+        let firstLetter = String(sentence.characters.first! as Character).uppercased()
+        return sentence.replacingCharacters(in: startIndex..<endIndex, with: firstLetter)
     }
     
-    private func valueToTimeString(value: Double) -> String {
-        let date = NSDate(timeIntervalSince1970: value)
-        let dateFormatter = NSDateFormatter()
+    fileprivate func valueToTimeString(_ value: Double) -> String {
+        let date = Date(timeIntervalSince1970: value)
+        let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "HH:mm"
-        return dateFormatter.stringFromDate(date)
+        return dateFormatter.string(from: date)
     }
 }
