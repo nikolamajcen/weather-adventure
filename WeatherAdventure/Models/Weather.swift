@@ -39,7 +39,7 @@ class Weather: Mappable {
         }
     }
     
-    var temperatureUnit: String! {
+    var temperatureUnit: String {
         get {
             switch UserDefaultsManager.unitsType {
             case .Metric:
@@ -50,7 +50,7 @@ class Weather: Mappable {
         }
     }
     
-    var windSpeedUnit: String! {
+    var windSpeedUnit: String {
         get {
             switch UserDefaultsManager.unitsType {
             case .Metric:

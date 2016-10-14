@@ -17,7 +17,7 @@ class ForecastTableViewCell: UITableViewCell {
     var forecast: Forecast! {
         didSet {
             timeLabel.text = formatTime(forecast.time!)
-            temperatureLabel.text = "\(Int(forecast.temperature!))\(forecast.temperatureUnit!)"
+            temperatureLabel.text = "\(Int(forecast.temperature!))\(forecast.temperatureUnit)"
             setWeatherIcon()
         }
     }

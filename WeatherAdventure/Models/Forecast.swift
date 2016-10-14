@@ -15,7 +15,7 @@ class Forecast: Mappable {
     var iconName: String?
     var temperature: Float?
     
-    var temperatureUnit: String! {
+    var temperatureUnit: String {
         get {
             switch UserDefaultsManager.unitsType {
             case .Metric:
@@ -26,7 +26,7 @@ class Forecast: Mappable {
         }
     }
     
-    var windSpeedUnit: String! {
+    var windSpeedUnit: String {
         get {
             switch UserDefaultsManager.unitsType {
             case .Metric:
