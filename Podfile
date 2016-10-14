@@ -6,10 +6,10 @@ target 'WeatherAdventure' do
   use_frameworks!
 
   # Pods for WeatherAdventure
-  pod 'Alamofire',    '~> 3.4'
+  pod 'Alamofire',    '~> 4.0'
   pod 'MBProgressHUD', '~> 1.0.0'
-  pod 'ObjectMapper', '~> 1.3'
+  pod 'ObjectMapper', '~> 2.1'
   pod 'RxSwift'
   pod 'RxCocoa'
-  pod 'RxDataSources'
+  pod 'RxDataSources', '~> 1.0.0-beta.3'
 end
