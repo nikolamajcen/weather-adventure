@@ -58,7 +58,7 @@ class WeatherViewModel {
             .map ({ _ in UserDefaultsManager.location != nil ? UserDefaultsManager.location.name! : "No location provided." })
         
         temperatureObservable = weather
-            .map({ $0.temperature != nil ? "\(Int($0.temperature!))\($0.temperatureUnit)" : "--" })
+            .map({ $0.temperature != nil ? "\(Int($0.temperature!))\($0.temperatureUnit!)" : "--" })
         
         descriptionObservable = weather
             .map({ $0.description != nil ? $0.description! : "--" })

@@ -79,7 +79,7 @@ class Weather: Mappable {
     
     fileprivate func capitalizeFirstLetter(_ sentence: String) -> String {
         let startIndex = sentence.startIndex
-        let endIndex = sentence.startIndex
+        let endIndex = sentence.index(after: sentence.startIndex)
         let firstLetter = String(sentence.characters.first! as Character).uppercased()
         return sentence.replacingCharacters(in: startIndex..<endIndex, with: firstLetter)
     }

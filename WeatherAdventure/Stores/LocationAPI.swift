@@ -24,8 +24,9 @@ class LocationAPI {
                     ]
                 )
                 .responseJSON(completionHandler: { (response) in
-                    if let value = (response.result.value as! [String: AnyObject])["results"] {
-                        observer.onNext(Mapper<Location>().mapArray(JSONObject: value)!)
+                    if let value = response.result.value {
+                        let json = (value as! [String: AnyObject])["results"]
+                        observer.onNext(Mapper<Location>().mapArray(JSONObject: json)!)
                         observer.onCompleted()
                     } else {
                         observer.onError(response.result.error!)

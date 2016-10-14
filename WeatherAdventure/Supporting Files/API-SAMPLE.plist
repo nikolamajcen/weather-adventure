@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>locationApiKey</key>
-	<string>ENTER GOOGLE API KEY</string>
+	<string>ENTER GOOGLE MAPS GEOCODING API KEY</string>
 	<key>weatherApiKey</key>
 	<string>ENTER OPEN WEATHER API KEY</string>
 </dict>
