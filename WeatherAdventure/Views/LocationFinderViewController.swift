@@ -47,10 +47,12 @@ class LocationFinderViewController: UIViewController {
             .addDisposableTo(disposeBag)
         
         tableView.rx.itemSelected
-            .subscribeNext { [unowned self] (indexPath) in
+            .subscribe(onNext: { [unowned self] (indexPath) in
                 self.tableView.deselectRow(at: indexPath, animated: true)
-                self.navigationController?.popViewController(animated: true)
-            }
+                if let navigationController = self.navigationController {
+                    navigationController.popViewController(animated: true)
+                }
+            })
             .addDisposableTo(disposeBag)
     }
 }

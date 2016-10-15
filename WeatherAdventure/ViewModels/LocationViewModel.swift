@@ -32,10 +32,10 @@ class LocationViewModel {
         
         newLocationVariable.asObservable()
             .filter { $0.name != nil }
-            .subscribeNext { location in
+            .subscribe(onNext: { location in
                 UserDefaultsManager.location = location
                 StateManager.instance.stateChanged.onNext(true)
-            }
+            })
             .addDisposableTo(disposeBag)
     }
 }
