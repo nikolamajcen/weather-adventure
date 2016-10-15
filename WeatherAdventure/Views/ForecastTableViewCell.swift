@@ -22,17 +22,17 @@ class ForecastTableViewCell: UITableViewCell {
         }
     }
     
-    private func formatTime(value: Double) -> String {
-        let formatter = NSDateFormatter()
+    fileprivate func formatTime(_ value: Double) -> String {
+        let formatter = DateFormatter()
         formatter.dateFormat = "HH:mm"
-        return formatter.stringFromDate(NSDate(timeIntervalSince1970: value))
+        return formatter.string(from: Date(timeIntervalSince1970: value))
     }
     
-    private func setWeatherIcon() {
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
-            let url = NSURL(string: "http://openweathermap.org/img/w/\(self.forecast.iconName!).png")!
-            guard let data =  NSData(contentsOfURL: url) else { return }
-            dispatch_async(dispatch_get_main_queue(), {
+    fileprivate func setWeatherIcon() {
+        DispatchQueue.global(qos: .default).async {
+            let url = URL(string: "http://openweathermap.org/img/w/\(self.forecast.iconName!).png")!
+            guard let data =  try? Data(contentsOf: url) else { return }
+            DispatchQueue.main.async(execute: {
                 self.iconImageView.image = UIImage(data: data)
             })
         }

@@ -11,9 +11,9 @@ import RxSwift
 
 class LocationViewModel {
     
-    private let locationAPI: LocationAPI
+    fileprivate let locationAPI: LocationAPI
     
-    private let disposeBag = DisposeBag()
+    fileprivate let disposeBag = DisposeBag()
     
     let locationsObservable: Observable<[Location]>
     let searchTextVariable = Variable<String>("")
@@ -32,10 +32,10 @@ class LocationViewModel {
         
         newLocationVariable.asObservable()
             .filter { $0.name != nil }
-            .subscribeNext { location in
+            .subscribe(onNext: { location in
                 UserDefaultsManager.location = location
                 StateManager.instance.stateChanged.onNext(true)
-            }
+            })
             .addDisposableTo(disposeBag)
     }
 }

@@ -24,18 +24,18 @@ class Location: NSObject, NSCoding {
     }
     
     required convenience init(coder aDecoder: NSCoder) {
-        let name = aDecoder.decodeObjectForKey("name") as! String
-        let latitude = aDecoder.decodeFloatForKey("latitude")
-        let longitude = aDecoder.decodeFloatForKey("longitude")
+        let name = aDecoder.decodeObject(forKey: "name") as! String
+        let latitude = aDecoder.decodeFloat(forKey: "latitude")
+        let longitude = aDecoder.decodeFloat(forKey: "longitude")
         self.init(name: name, latitude: latitude, longitude: longitude)
     }
     
-    required init?(_ map: Map) { }
+    required init?(map: Map) { }
     
-    func encodeWithCoder(aCoder: NSCoder) {
-        aCoder.encodeObject(name, forKey: "name")
-        aCoder.encodeFloat(latitude!, forKey: "latitude")
-        aCoder.encodeFloat(longitude!, forKey: "longitude")
+    func encode(with aCoder: NSCoder) {
+        aCoder.encode(name, forKey: "name")
+        aCoder.encode(latitude!, forKey: "latitude")
+        aCoder.encode(longitude!, forKey: "longitude")
     }
 }
 

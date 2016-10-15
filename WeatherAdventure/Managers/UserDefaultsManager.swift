@@ -19,23 +19,23 @@ class UserDefaultsManager {
     static var location: Location! {
         get {
             let defaults = initializeUserDefaults()
-            guard let data = defaults.objectForKey("location") else {
+            guard let data = defaults.object(forKey: "location") else {
                 return nil
             }
-            let location = NSKeyedUnarchiver.unarchiveObjectWithData(data as! NSData) as! Location
+            let location = NSKeyedUnarchiver.unarchiveObject(with: data as! Data) as! Location
             return location
         }
         set {
             let defaults = initializeUserDefaults()
-            let data = NSKeyedArchiver.archivedDataWithRootObject(newValue)
-            defaults.setObject(data, forKey: "location")
+            let data = NSKeyedArchiver.archivedData(withRootObject: newValue)
+            defaults.set(data, forKey: "location")
         }
     }
     
     static var unitsType: UnitType {
         get {
             let defaults = initializeUserDefaults()
-            guard let unitsType = defaults.stringForKey("unitsType") else {
+            guard let unitsType = defaults.string(forKey: "unitsType") else {
                 return UnitType.Metric
             }
             
@@ -52,7 +52,7 @@ class UserDefaultsManager {
         }
     }
     
-    private static func initializeUserDefaults() -> NSUserDefaults {
-        return NSUserDefaults.standardUserDefaults()
+    fileprivate static func initializeUserDefaults() -> UserDefaults {
+        return UserDefaults.standard
     }
 }

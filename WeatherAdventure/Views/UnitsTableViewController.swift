@@ -11,35 +11,35 @@ import RxSwift
 
 class UnitsTableViewController: UITableViewController {
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         showCurrentUnitType()
     }
     
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        tableView.deselectRowAtIndexPath(indexPath, animated: true)
-        if let cell = tableView.cellForRowAtIndexPath(indexPath) where cell.accessoryType != .Checkmark {
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        if let cell = tableView.cellForRow(at: indexPath) , cell.accessoryType != .checkmark {
             selectUnitType(cell, indexPath: indexPath)
         }
     }
     
-    private func showCurrentUnitType() {
-        let indexPath: NSIndexPath
+    fileprivate func showCurrentUnitType() {
+        let indexPath: IndexPath
         switch UserDefaultsManager.unitsType {
         case .Metric:
-            indexPath = NSIndexPath(forRow: 0, inSection: 0)
+            indexPath = IndexPath(row: 0, section: 0)
         case .Imperial:
-            indexPath = NSIndexPath(forRow: 1, inSection: 0)
+            indexPath = IndexPath(row: 1, section: 0)
         }
-        let cell = tableView.cellForRowAtIndexPath(indexPath)
-        cell?.accessoryType = .Checkmark
+        let cell = tableView.cellForRow(at: indexPath)
+        cell?.accessoryType = .checkmark
     }
     
-    private func selectUnitType(cell: UITableViewCell, indexPath: NSIndexPath) {
+    fileprivate func selectUnitType(_ cell: UITableViewCell, indexPath: IndexPath) {
         removeAllCheckmarks(indexPath)
-        cell.accessoryType = .Checkmark
+        cell.accessoryType = .checkmark
         
-        switch indexPath.row {
+        switch (indexPath as NSIndexPath).row {
         case 0:
             UserDefaultsManager.unitsType = .Metric
         case 1:
@@ -50,11 +50,11 @@ class UnitsTableViewController: UITableViewController {
         StateManager.instance.stateChanged.onNext(true)
     }
     
-    private func removeAllCheckmarks(indexPath: NSIndexPath) {
-        for row in 0...tableView.numberOfRowsInSection(indexPath.section) {
-            let currentIndexPath = NSIndexPath(forRow: row, inSection: indexPath.section)
-            if let cell = tableView.cellForRowAtIndexPath(currentIndexPath) where cell.accessoryType == .Checkmark {
-                cell.accessoryType = .None
+    fileprivate func removeAllCheckmarks(_ indexPath: IndexPath) {
+        for row in 0...tableView.numberOfRows(inSection: (indexPath as NSIndexPath).section) {
+            let currentIndexPath = IndexPath(row: row, section: (indexPath as NSIndexPath).section)
+            if let cell = tableView.cellForRow(at: currentIndexPath) , cell.accessoryType == .checkmark {
+                cell.accessoryType = .none
             }
         }
     }

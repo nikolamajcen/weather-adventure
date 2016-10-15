@@ -35,64 +35,72 @@ class WeatherViewController: UIViewController {
         initializeUIBindings()
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         navigationController?.navigationBar.hideBorderLine()
     }
     
-    private func initializeUI() {
-        MBProgressHUD.showHUDAddedTo(view, animated: true)
+    fileprivate func initializeUI() {
+        MBProgressHUD.showAdded(to: view, animated: true)
     }
     
-    private func initializeUIBindings() {
+    fileprivate func initializeUIBindings() {
         viewModel.weatherVariable.asObservable()
-            .subscribe { [unowned self] _ in MBProgressHUD.hideHUDForView(self.view, animated: true) }
+            .subscribe { [unowned self] _ in MBProgressHUD.hide(for: self.view, animated: true) }
             .addDisposableTo(disposeBag)
         
-        refreshButton.rx_tap
-            .map { [unowned self] in MBProgressHUD.showHUDAddedTo(self.view, animated: true) }
+        refreshButton.rx.tap
+            .map { [unowned self] in MBProgressHUD.showAdded(to: self.view, animated: true) }
             .bindTo(viewModel.weatherVariable)
             .addDisposableTo(disposeBag)
         
         viewModel.iconObservable
-            .map(UIImage.init)
-            .bindTo(weatherImage.rx_image)
+            .map { UIImage.init(data: $0 as Data) }
+            .bindTo(weatherImage.rx.image)
             .addDisposableTo(disposeBag)
         
         viewModel.locationNameObservable
-            .bindTo(locationNameLabel.rx_text)
+            .map { $0 }
+            .bindTo(locationNameLabel.rx.text)
             .addDisposableTo(disposeBag)
         
         viewModel.temperatureObservable
-            .bindTo(temperatureLabel.rx_text)
+            .map { $0 }
+            .bindTo(temperatureLabel.rx.text)
             .addDisposableTo(disposeBag)
         
         viewModel.descriptionObservable
-            .bindTo(descriptionLabel.rx_text)
+            .map { $0 }
+            .bindTo(descriptionLabel.rx.text)
             .addDisposableTo(disposeBag)
         
         viewModel.sunriseObservable
-            .bindTo(sunriseLabel.rx_text)
+            .map { $0 }
+            .bindTo(sunriseLabel.rx.text)
             .addDisposableTo(disposeBag)
         
         viewModel.sunsetObservable
-            .bindTo(sunsetLabel.rx_text)
+            .map { $0 }
+            .bindTo(sunsetLabel.rx.text)
             .addDisposableTo(disposeBag)
         
         viewModel.windSpeedObservable
-            .bindTo(windSpeedLabel.rx_text)
+            .map { $0 }
+            .bindTo(windSpeedLabel.rx.text)
             .addDisposableTo(disposeBag)
         
         viewModel.humidityObservable
-            .bindTo(humidityLabel.rx_text)
+            .map { $0 }
+            .bindTo(humidityLabel.rx.text)
             .addDisposableTo(disposeBag)
         
         viewModel.pressureObservable
-            .bindTo(pressureLabel.rx_text)
+            .map { $0 }
+            .bindTo(pressureLabel.rx.text)
             .addDisposableTo(disposeBag)
         
         viewModel.forecastObservable
-            .bindTo(forecastButton.rx_enabled)
+            .bindTo(forecastButton.rx.enabled)
             .addDisposableTo(disposeBag)
     }
 }

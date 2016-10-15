@@ -15,7 +15,7 @@ class Forecast: Mappable {
     var iconName: String?
     var temperature: Float?
     
-    var temperatureUnit: String! {
+    var temperatureUnit: String {
         get {
             switch UserDefaultsManager.unitsType {
             case .Metric:
@@ -26,7 +26,7 @@ class Forecast: Mappable {
         }
     }
     
-    var windSpeedUnit: String! {
+    var windSpeedUnit: String {
         get {
             switch UserDefaultsManager.unitsType {
             case .Metric:
@@ -39,7 +39,7 @@ class Forecast: Mappable {
     
     init() { }
     
-    required init?(_ map: Map) { }
+    required init?(map: Map) { }
     
     func mapping(map: Map) {
         time <- map["dt"]
@@ -48,9 +48,9 @@ class Forecast: Mappable {
     }
     
     func getDate() -> String{
-        let formatter = NSDateFormatter()
+        let formatter = DateFormatter()
         formatter.dateFormat = "yyyyMMdd dd.MM.yyyy."
-        let date = NSDate(timeIntervalSince1970: time!)
-        return formatter.stringFromDate(date)
+        let date = Date(timeIntervalSince1970: time!)
+        return formatter.string(from: date)
     }
 }
